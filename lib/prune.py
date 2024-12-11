@@ -137,8 +137,12 @@ def prune_wanda(args, model, tokenizer, device=torch.device("cuda:0"), prune_n=0
     layers = model.model.layers
     for i in range(len(layers)):
         layer = layers[i]
+        #(jhkim/annotation) find layers to prune
+        # output is dict
+        #(jhkim/debugging)
+        print(layer)
         subset = find_layers(layer)
-
+        #(jhkim/anntation) Multi-GPU
         if f"model.layers.{i}" in model.hf_device_map:   ## handle the case for llama-30B and llama-65B, when the device map has multiple GPUs;
             dev = model.hf_device_map[f"model.layers.{i}"]
             inps, outs, attention_mask, position_ids = inps.to(dev), outs.to(dev), attention_mask.to(dev), position_ids.to(dev)
