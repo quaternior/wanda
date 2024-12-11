@@ -140,6 +140,7 @@ def prune_wanda(args, model, tokenizer, device=torch.device("cuda:0"), prune_n=0
         #(jhkim/annotation) find layers to prune
         # output is dict
         #(jhkim/debugging)
+        print("layer : ")
         print(layer)
         subset = find_layers(layer)
         #(jhkim/anntation) Multi-GPU
